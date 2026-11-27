@@ -1,0 +1,5 @@
+# non secrets safe to share
+data_path: "data/prices.csv"
+model_path: "models/model.joblib"
+vat_rate: 0.18
+seed: 42

@@ -1,0 +1,18 @@
+# Secrets
+.env
+
+# Virtual environment
+.venv/
+
+# Trained models
+models/
+
+# Generated files and caches
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+
+# macOS-generated files
+.DS_Store
