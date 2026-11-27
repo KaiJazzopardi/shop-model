@@ -251,3 +251,40 @@ Lint → Test → Validate → Gate → Build
 If any step fails, the pipeline stops.
 
 The project version is maintained in `pyproject.toml`. Docker images are tagged with both the project version and the version combined with the Git commit hash.
+
+## Continuous integration
+
+GitHub Actions automatically runs the CI pipeline on every push and pull request using `make ci`.
+
+The pipeline performs:
+
+- Linting with Ruff.
+- Automated testing with pytest and Hypothesis.
+- Data validation with Pandera.
+- Model evaluation against a frozen holdout dataset.
+- Versioned Docker image building.
+
+The main branch is protected by required CI status checks.
+
+### Continuous delivery
+
+When the pipeline passes on a push to main, the Docker image is automatically published to GitHub Container Registry (GHCR).
+
+Registry: `ghcr.io/kaijazzopardi/shop-model`
+
+Each image receives two tags: the application version and the application version combined with the Git commit hash.
+
+### Releasing a new version
+
+1. Update the version in `pyproject.toml`.
+2. Commit and push the changes to a branch.
+3. Create a pull request.
+4. Merge into main once all required CI checks pass.
+
+GitHub Actions automatically builds and publishes the new version.
+
+### Downloading the published image
+
+`docker pull ghcr.io/kaijazzopardi/shop-model:0.4.0`
+
+The published image must be compatible with the target machine's architecture.
