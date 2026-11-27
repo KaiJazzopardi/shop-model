@@ -4,7 +4,7 @@ vat_rate: 0.18
 seed: 42
 
 # Training window
-train_start: null
+train_start: "2026-08-03"
 
 # Frozen holdout
 holdout_path: "data/holdout.csv"
