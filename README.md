@@ -226,3 +226,28 @@ docker compose down
 ```
 
 Docker Compose stops and removes the containers while preserving the named volumes. Avoid `docker compose down -v` unless you deliberately want to delete persisted data.
+
+## The pipeline
+
+The Makefile defines a reproducible pipeline for checking and building the project.
+
+| Command | Description |
+|---|---|
+| `make install` | Install dependencies and the package |
+| `make lint` | Check source code using Ruff |
+| `make test` | Run unit tests using pytest |
+| `make validate` | Validate the datasets against a schema |
+| `make gate` | Evaluate the model against the frozen holdout |
+| `make gate GATE_SPLIT=random` | Evaluate using the random test split |
+| `make build` | Build and tag the Docker image |
+| `make up` | Build and start the Docker Compose services |
+| `make version` | Display the version from pyproject.toml |
+| `make ci` | Run the complete CI pipeline |
+
+The CI pipeline executes the following steps in order:
+
+Lint → Test → Validate → Gate → Build
+
+If any step fails, the pipeline stops.
+
+The project version is maintained in `pyproject.toml`. Docker images are tagged with both the project version and the version combined with the Git commit hash.

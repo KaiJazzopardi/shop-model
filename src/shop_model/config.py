@@ -8,3 +8,7 @@ def load_config (path=None):
         config = yaml.safe_load(f)
 
     return (config)
+
+def data_path(config):
+    """Return the training data path, respecting environment overrides."""
+    return os.environ.get("DATA_PATH", config["data_path"])
